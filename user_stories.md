@@ -19,9 +19,9 @@
 
 # Technical plan
 
-1. Need to have three images side by side on page
+1. Need to have three images side by side on page 
   - 3 img tags
-  - put images in container and float them side by side 
+  - put images in ul and get them side by side 
 
 2. Need to target images to be able to change and track them
     - Get image node in script
@@ -39,15 +39,14 @@
   - know/set the range of the random number
   - Target an image at a random index to target random image in array. Generate the number with a min of 0 and a max of .length of array.
 
-5. Collect click data 
+5. Collect click data - done
   - make each image an object using an object constructor to collect data about it and reference.
   - make properties: 
     * name of image
     * path to image
     * # of clicks
     * # of times displayed.
-
-6. Track how many times images are displayed
+[X] Track how many times images are displayed
   - add a for loop that adds 1 to the value to a variable for every time that images is displayed.
 
 7. Ensure that duplicated are not displayed on reload

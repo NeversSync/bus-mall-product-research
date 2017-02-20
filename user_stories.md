@@ -47,7 +47,7 @@
     * # of clicks
     * # of times displayed.
 
-[X] Track how many times images are displayed
+- [X] Track how many times images are displayed
   - add a for loop that adds 1 to the value to a variable for every time that images is displayed.
 
 7. Ensure that duplicated are not displayed on reload

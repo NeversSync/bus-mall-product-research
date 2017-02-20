@@ -1,4 +1,4 @@
-#User Stories Monday-Lab
+# User Stories Monday Lab
 
 - As a business owner, I want to do market research to determine which products are the most desireable before investing resources into selling them so I can save time and money.
 
@@ -17,4 +17,42 @@
 - As a developer, I want to make the results of the apps function visually displayable and the interface of the app itself easy to use, nice to look at, and professional looking to make the experience of using it as seamless as possible.
 
 
- 
+# Technical plan
+
+1. Need to have three images side by side on page
+  - 3 img tags
+  - put images in container and float them side by side 
+
+2. Need to target images to be able to change and track them
+    - Get image node in script
+    - Give ids to each img in html
+    - Use getElementById in script to reference each image
+
+3. Need to change what is displayed in the browser when user clicks.
+  - need each image to have a src attribute to be able to change it.
+  - need to have a list (array) of the image paths as strings
+  - need to have event listener looking for clicks
+  - need to have clickHandler function that changes src of images on page   
+
+4. Need to load random images
+  - generate random number using math.random 
+  - know/set the range of the random number
+  - Target an image at a random index to target random image in array. Generate the number with a min of 0 and a max of .length of array.
+
+5. Collect click data 
+  - make each image an object using an object constructor to collect data about it and reference.
+  - make properties: 
+    * name of image
+    * path to image
+    * # of clicks
+    * # of times displayed.
+
+6. Track how many times images are displayed
+  - add a for loop that adds 1 to the value to a variable for every time that images is displayed.
+
+7. Ensure that duplicated are not displayed on reload
+  - use an if/else statement that checks to see if random number ends at same index as others and if so reruns the random number generation.
+
+8. Ensure that no images previously displayed are re-displayed on next load
+  - ?
+

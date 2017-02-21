@@ -1,0 +1,27 @@
+body {
+  width: 1200px;
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: 100px;
+  text-align: center;
+}
+
+ul {
+  margin: 10px auto;
+  text-align: center;
+}
+
+li {
+  display: inline-block;
+  outline: 2px solid black;
+  width: 300px;
+  height: 300px;
+  margin: 15px;
+}
+
+img {
+  width: 300px;
+  height: 300px;
+}

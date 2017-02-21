@@ -19,40 +19,38 @@
 
 # Technical plan
 
-- [] Need to have three images side by side on page 
+- [ ] Need to have three images side by side on page 
   - 3 img tags
   - put images in ul and get them side by side 
 
-- [] Need to target images to be able to change and track them
+- [X] Need to target images to be able to change and track them
     - Get image node in script
     - Give ids to each img in html
     - Use getElementById in script to reference each image
 
-- [] Need to change what is displayed in the browser when user clicks.
+- [X] Need to change what is displayed in the browser when user clicks.
   - need each image to have a src attribute to be able to change it.
   - need to have a list (array) of the image paths as strings
   - need to have event listener looking for clicks
   - need to have clickHandler function that changes src of images on page   
 
-- [] Need to load random images
+- [ ] Need to load random images
   - generate random number using math.random 
   - know/set the range of the random number
   - Target an image at a random index to target random image in array. Generate the number with a min of 0 and a max of .length of array.
 
-- [ ] Collect click data - done
+- [X] Collect click data - done
   - make each image an object using an object constructor to collect data about it and reference.
   - make properties: 
     * name of image
     * path to image
-    * number of clicks
-    * number of times displayed.
 
-- [] Track how many times images are displayed
+- [ ] Track how many times images are displayed
   - add a for loop that adds 1 to the value to a variable for every time that images is displayed.
 
-- [] Ensure that duplicated are not displayed on reload
+- [ ] Ensure that duplicated are not displayed on reload
   - use an if/else statement that checks to see if random number ends at same index as others and if so reruns the random number generation.
 
-- [] Ensure that no images previously displayed are re-displayed on next load
+- [ ] Ensure that no images previously displayed are re-displayed on next load
   - ?
 

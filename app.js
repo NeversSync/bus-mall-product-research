@@ -58,3 +58,36 @@ function clickHandler(event) {
 }
 
 addImages();
+
+var ctx = document.getElementById('myChart');
+var chartConfig = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [{
+      label: '# of Votes',
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        'Red',
+        'Blue',
+        'Green',
+        'Yellow',
+        'Purple',
+        'grey'
+      ],
+      borderColor: [
+        'black'
+      ],
+      borderWidth: 4
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero:true
+        }
+      }]
+    }
+  }
+});

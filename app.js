@@ -11,7 +11,7 @@ var totalClicks = 0;
 
 
 function Product(source) {
-  this.name = source.split('/')[1];
+  this.name = source.split('/')[1].split('.')[0];
   this.source = source;
   this.timesClicked = 0;
   this.timesSeen = 0;

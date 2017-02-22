@@ -9,6 +9,7 @@ var lastImages = [];
 var items = [];
 var totalClicks = 0;
 
+
 function Product(source) {
   this.name = source.split('/')[1];
   this.source = source;
@@ -61,7 +62,6 @@ for(var i = 0; i < ids.length; i++) {
 };
 
 
-
 function clickHandler(event) {
   var clickedImage = event.target.getAttribute('src');
   for(var i = 0; i < items.length; i++) {
@@ -70,23 +70,20 @@ function clickHandler(event) {
       totalClicks += 1;
     }
   }
-  for(var j = 0; j < ids.length; j++) {
-    if(totalClicks === 25) {
+  if(totalClicks === 25) {
+    for(var j = 0; j < ids.length; j++) {
       productClick = document.getElementById(ids[j]);
       productClick.removeEventListener('click', clickHandler);
-      renderChart();
     }
+    renderChart();
+    storeData();
   }
   addImages();
 }
-// renderChart();
+
 addImages();
 
-// for(var j = 0; j < items.length; j++) {
-//   labels.push(items[j]);
-// }
 
-// var labelNames = [];
 function renderChart() {
   var labelNames = [];
   var clickCount = [];
@@ -101,19 +98,29 @@ function renderChart() {
     barColor2.push('blue');
   }
   var ctx = document.getElementById('my_chart');
-  var clickChart = new Chart(ctx, {
+  var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: labelNames,
       datasets: [{
-        label: '# of Votes',
+        label: 'Number of Votes',
         data: clickCount,
         backgroundColor: barColor1,
         borderColor: [
           'black'
         ],
-        borderWidth: 2
-      }]
+        borderWidth: 1
+      },
+      {
+        label: 'Amount of times shown',
+        data: showCount,
+        backgroundColor: barColor2,
+        borderColor: [
+          'black'
+        ],
+        borderWidth: 1
+      }
+      ]
     },
     options: {
       title: {
@@ -130,34 +137,9 @@ function renderChart() {
       }
     }
   });
-  var ctx2 = document.getElementById('seen_chart');
-  new Chart(ctx2, {
-    type: 'bar',
-    data: {
-      labels: labelNames,
-      datasets: [{
-        label: 'Amount of times seen',
-        data: showCount,
-        backgroundColor: barColor2,
-        borderColor: [
-          'black'
-        ],
-        borderWidth: 2
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Times seen',
-        fontSize: 30,
-      },
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero:true
-          }
-        }]
-      }
-    }
-  });
+}
+
+function storeData() {
+  var jsonItems = JSON.stringify(items);
+  localStorage.setItem('busMallData', jsonItems);
 }

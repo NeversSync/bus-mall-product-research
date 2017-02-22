@@ -10,7 +10,7 @@ var items = [];
 var totalClicks = 0;
 
 function Product(source) {
-  this.name = source.split('.')[0];
+  this.name = source.split('/')[1];
   this.source = source;
   this.timesClicked = 0;
   this.timesSeen = 0;
@@ -79,34 +79,70 @@ function clickHandler(event) {
   }
   addImages();
 }
-
+// renderChart();
 addImages();
 
+// for(var j = 0; j < items.length; j++) {
+//   labels.push(items[j]);
+// }
 
+// var labelNames = [];
 function renderChart() {
   var ctx = document.getElementById('my_chart');
-  var myChart = new Chart(ctx, {
+  var clickChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: [items[0].name, items[1].name, items[2].name, items[3].name, items[4].name, items[5].name, items[6].name, items[7].name, items[8].name, items[9].name, items[10].name, items[11].name, items[12].name, items[13].name, items[14].name, items[15].name, items[16].name, items[17].name, items[18].name, items[19].name],
       datasets: [{
         label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        data: [items[0].timesClicked, items[1].timesClicked, items[2].timesClicked, items[3].timesClicked, items[4].timesClicked, items[5].timesClicked, items[6].timesClicked, items[7].timesClicked, items[8].timesClicked, items[9].timesClicked, items[10].timesClicked, items[11].timesClicked, items[12].timesClicked, items[13].timesClicked, items[14].timesClicked, items[15].timesClicked, items[16].timesClicked, items[17].timesClicked, items[18].timesClicked, items[19].timesClicked],
         backgroundColor: [
-          'red',
-          'blue',
-          'green',
-          'yellow',
-          'purple',
-          'grey'
+          'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red', 'red'
         ],
         borderColor: [
           'black'
         ],
-        borderWidth: 4
+        borderWidth: 2
       }]
     },
     options: {
+      title: {
+        display: true,
+        text: 'Customer votes',
+        fontSize: 30,
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
+    }
+  });
+  var ctx2 = document.getElementById('seen_chart');
+  new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: [items[0].name, items[1].name, items[2].name, items[3].name, items[4].name, items[5].name, items[6].name, items[7].name, items[8].name, items[9].name, items[10].name, items[11].name, items[12].name, items[13].name, items[14].name, items[15].name, items[16].name, items[17].name, items[18].name, items[19].name],
+      datasets: [{
+        label: 'Amount of times seen',
+        data: [items[0].timesSeen, items[1].timesSeen, items[2].timesSeen, items[3].timesSeen, items[4].timesSeen, items[5].timesSeen, items[6].timesSeen, items[7].timesSeen, items[8].timesSeen, items[9].timesSeen, items[10].timesSeen, items[11].timesSeen, items[12].timesSeen, items[13].timesSeen, items[14].timesSeen, items[15].timesSeen, items[16].timesSeen, items[17].timesSeen, items[18].timesSeen, items[19].timesSeen],
+        backgroundColor: [
+          'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue'
+        ],
+        borderColor: [
+          'black'
+        ],
+        borderWidth: 2
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Times seen',
+        fontSize: 30,
+      },
       scales: {
         yAxes: [{
           ticks: {

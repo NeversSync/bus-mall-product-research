@@ -19,7 +19,7 @@
 
 # Technical plan
 
-- [ ] Need to have three images side by side on page 
+- [X] Need to have three images side by side on page 
   - 3 img tags
   - put images in ul and get them side by side 
 
@@ -34,7 +34,7 @@
   - need to have event listener looking for clicks
   - need to have clickHandler function that changes src of images on page   
 
-- [ ] Need to load random images
+- [X] Need to load random images
   - generate random number using math.random 
   - know/set the range of the random number
   - Target an image at a random index to target random image in array. Generate the number with a min of 0 and a max of .length of array.
@@ -45,7 +45,7 @@
     * name of image
     * path to image
 
-- [ ] Track how many times images are displayed
+- [X] Track how many times images are displayed
   - add a for loop that adds 1 to the value to a variable for every time that images is displayed.
 
 - [ ] Ensure that duplicated are not displayed on reload
@@ -53,4 +53,6 @@
 
 - [ ] Ensure that no images previously displayed are re-displayed on next load
   - ?
+
+- [ ] Ensure that the script doesn't allow any clicks past 25. 
 

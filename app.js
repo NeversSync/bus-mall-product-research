@@ -8,6 +8,7 @@ var sources = [
 var lastImages = [];
 var items = [];
 var totalClicks = 0;
+var myChart;
 
 
 function Product(source) {
@@ -22,8 +23,6 @@ function makeObjects() {
     items.push(new Product(sources[i]));
   }
 }
-
-makeObjects();
 
 var randomNumber = function() {
   return Math.floor(Math.random() * items.length);
@@ -56,12 +55,6 @@ function addImages() {
   lastImages = newImages;
 }
 
-for(var i = 0; i < ids.length; i++) {
-  var productClick = document.getElementById(ids[i]);
-  productClick.addEventListener('click', clickHandler);
-};
-
-
 function clickHandler(event) {
   var clickedImage = event.target.getAttribute('src');
   for(var i = 0; i < items.length; i++) {
@@ -81,9 +74,6 @@ function clickHandler(event) {
   addImages();
 }
 
-addImages();
-
-
 function renderChart() {
   var labelNames = [];
   var clickCount = [];
@@ -98,7 +88,7 @@ function renderChart() {
     barColor2.push('blue');
   }
   var ctx = document.getElementById('my_chart');
-  var myChart = new Chart(ctx, {
+  myChart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: labelNames,
@@ -143,3 +133,25 @@ function storeData() {
   var jsonItems = JSON.stringify(items);
   localStorage.setItem('busMallData', jsonItems);
 }
+
+function getData() {
+  return localStorage.getItem('busMallData');
+}
+
+
+//main flow of logic
+for(var i = 0; i < ids.length; i++) {
+  var productClick = document.getElementById(ids[i]);
+  productClick.addEventListener('click', clickHandler);
+};
+
+// if objects and data are stored, then use those as baseline, otherwise;
+var oldData = getData();
+if (oldData) {
+  //i have data!
+  items = JSON.parse(oldData);
+} else {
+  makeObjects();
+}
+
+addImages();

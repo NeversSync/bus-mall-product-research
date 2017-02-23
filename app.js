@@ -68,12 +68,15 @@ function clickHandler(event) {
       productClick = document.getElementById(ids[j]);
       productClick.removeEventListener('click', clickHandler);
     }
-    renderChart();
     makeClickPercent();
+    renderChart();
     storeData();
   }
   addImages();
 }
+
+Chart.defaults.global.defaultFontFamily = 'Gruppo';
+Chart.defaults.global.defaultFontSize = 25;
 
 function renderChart() {
   var labelNames = [];
@@ -107,11 +110,11 @@ function renderChart() {
         borderWidth: 2
       },
       {
-        label: 'Amount of times shown',
+        label: 'Number of times shown',
         data: showCount,
         backgroundColor: barColor2,
         borderColor: [
-          'black'
+          'white'
         ],
         borderWidth: 2
       }
@@ -121,7 +124,7 @@ function renderChart() {
       title: {
         display: true,
         text: 'Customer votes',
-        fontSize: 30,
+        fontSize: 50,
       },
       scales: {
         yAxes: [{
@@ -133,7 +136,7 @@ function renderChart() {
     }
   });
 
-  var ctx2 = document.getElementById('seen_chart');
+  var ctx2 = document.getElementById('percent_chart');
   myChart2 = new Chart(ctx2, {
     type: 'bar',
     data: {
@@ -143,7 +146,7 @@ function renderChart() {
         data: percentCount,
         backgroundColor: barColor3,
         borderColor: [
-          'black'
+          'green'
         ],
         borderWidth: 2
       }]
@@ -151,13 +154,20 @@ function renderChart() {
     options: {
       title: {
         display: true,
-        text: 'Customer votes',
-        fontSize: 30,
+        text: 'Popularity of products',
+        fontSize: 50,
       },
       scales: {
         yAxes: [{
           ticks: {
-            beginAtZero:true
+            beginAtZero:true,
+            min: 0,
+            max: 100,
+            callback: function(value) {return value + '%';}
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Percentage'
           }
         }]
       }
@@ -168,9 +178,9 @@ function renderChart() {
 function makeClickPercent() {
   for(var i = 0; i < items.length; i++) {
     if(items[i].timesSeen > 0) {
-      items[i].clickPercent = (items[i].timesClicked / items[i].timesSeen) * 100 + '%';
+      items[i].clickPercent = (items[i].timesClicked / items[i].timesSeen) * 100;
     } else {
-      items[i].clickPercent = '0%';
+      items[i].clickPercent = '0';
     }
   }
 }

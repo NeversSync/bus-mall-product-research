@@ -56,3 +56,15 @@
 
 - [ ] Ensure that the script doesn't allow any clicks past 25. 
 
+
+## Local Storage technical plan
+
+- ensure that tracked values (timesClicked, timesSeen, percentClicked) are all stored on localStorage once first run through has finished.  
+
+- ensure that those values are gotten (localStorage.getItem) upon new page loads.
+
+- ensure that values accumulate
+
+- ensure that accumulated values display in chart. 
+
+- 

@@ -8,12 +8,15 @@ var sources = [
 var lastImages = [];
 var items = [];
 var totalClicks = 0;
+var myChart;
+var myChart2;
 
 function Product(source) {
-  this.name = source.split('/')[1];
+  this.name = source.split('/')[1].split('.')[0];
   this.source = source;
   this.timesClicked = 0;
   this.timesSeen = 0;
+  this.clickPercent;
 }
 
 function makeObjects() {
@@ -21,8 +24,6 @@ function makeObjects() {
     items.push(new Product(sources[i]));
   }
 }
-
-makeObjects();
 
 var randomNumber = function() {
   return Math.floor(Math.random() * items.length);
@@ -50,17 +51,9 @@ function addImages() {
     images.setAttribute('src', randomImageSource);
     randomImage.timesSeen += 1;
     newImages.push(randomImageSource);
-
   }
   lastImages = newImages;
 }
-
-for(var i = 0; i < ids.length; i++) {
-  var productClick = document.getElementById(ids[i]);
-  productClick.addEventListener('click', clickHandler);
-};
-
-
 
 function clickHandler(event) {
   var clickedImage = event.target.getAttribute('src');
@@ -70,45 +63,85 @@ function clickHandler(event) {
       totalClicks += 1;
     }
   }
-  for(var j = 0; j < ids.length; j++) {
-    if(totalClicks === 25) {
+  if(totalClicks === 25) {
+    for(var j = 0; j < ids.length; j++) {
       productClick = document.getElementById(ids[j]);
       productClick.removeEventListener('click', clickHandler);
-      renderChart();
     }
+    renderChart();
+    makeClickPercent();
+    storeData();
   }
   addImages();
 }
-// renderChart();
-addImages();
 
-// for(var j = 0; j < items.length; j++) {
-//   labels.push(items[j]);
-// }
-
-// var labelNames = [];
 function renderChart() {
   var labelNames = [];
   var clickCount = [];
   var showCount = [];
+  var percentCount = [];
   var barColor1 = [];
   var barColor2 = [];
+  var barColor3 = [];
   for(var i = 0; i < items.length; i++) {
     labelNames.push(items[i].name);
     clickCount.push(items[i].timesClicked);
     showCount.push(items[i].timesSeen);
+    percentCount.push(items[i].clickPercent);
     barColor1.push('red');
     barColor2.push('blue');
+    barColor3.push('green');
   }
   var ctx = document.getElementById('my_chart');
-  var clickChart = new Chart(ctx, {
+  myChart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: labelNames,
       datasets: [{
-        label: '# of Votes',
+        label: 'Number of Votes',
         data: clickCount,
         backgroundColor: barColor1,
+        borderColor: [
+          'black'
+        ],
+        borderWidth: 2
+      },
+      {
+        label: 'Amount of times shown',
+        data: showCount,
+        backgroundColor: barColor2,
+        borderColor: [
+          'black'
+        ],
+        borderWidth: 2
+      }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Customer votes',
+        fontSize: 30,
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
+    }
+  });
+
+  var ctx2 = document.getElementById('seen_chart');
+  myChart2 = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: labelNames,
+      datasets: [{
+        label: 'Percent of times clicked/shown',
+        data: percentCount,
+        backgroundColor: barColor3,
         borderColor: [
           'black'
         ],
@@ -130,34 +163,41 @@ function renderChart() {
       }
     }
   });
-  var ctx2 = document.getElementById('seen_chart');
-  new Chart(ctx2, {
-    type: 'bar',
-    data: {
-      labels: labelNames,
-      datasets: [{
-        label: 'Amount of times seen',
-        data: showCount,
-        backgroundColor: barColor2,
-        borderColor: [
-          'black'
-        ],
-        borderWidth: 2
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Times seen',
-        fontSize: 30,
-      },
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero:true
-          }
-        }]
-      }
-    }
-  });
 }
+
+function makeClickPercent() {
+  for(var i = 0; i < items.length; i++) {
+    if(items[i].timesSeen > 0) {
+      items[i].clickPercent = (items[i].timesClicked / items[i].timesSeen) * 100 + '%';
+    } else {
+      items[i].clickPercent = '0%';
+    }
+  }
+}
+
+function storeData() {
+  var jsonItems = JSON.stringify(items);
+  localStorage.setItem('busMallData', jsonItems);
+}
+
+function getData() {
+  return localStorage.getItem('busMallData');
+}
+
+
+//main flow of logic
+for(var i = 0; i < ids.length; i++) {
+  var productClick = document.getElementById(ids[i]);
+  productClick.addEventListener('click', clickHandler);
+};
+
+// if objects and data are stored, then use those as baseline, otherwise;
+var oldData = getData();
+if (oldData) {
+  //i have data!
+  items = JSON.parse(oldData);
+} else {
+  makeObjects();
+}
+
+addImages();

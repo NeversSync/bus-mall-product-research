@@ -8,8 +8,6 @@ var sources = [
 var lastImages = [];
 var items = [];
 var totalClicks = 0;
-var myChart;
-var myChart2;
 
 function Product(source) {
   this.name = source.split('/')[1].split('.')[0];
@@ -193,7 +191,6 @@ function storeData() {
 function getData() {
   return localStorage.getItem('busMallData');
 }
-
 
 //main flow of logic
 for(var i = 0; i < ids.length; i++) {
